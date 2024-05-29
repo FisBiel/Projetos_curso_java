@@ -25,5 +25,7 @@ public class PartidaXadrez {
 
     private void iniciaPartida() {
         tabuleiro.posiçãoPeça(new Torre(tabuleiro, Cor.Branco), new Posição(2, 1));
+        tabuleiro.posiçãoPeça(new Torre(tabuleiro, Cor.Branco), new Posição(7, 1));
+        tabuleiro.posiçãoPeça(new Torre(tabuleiro, Cor.Branco), new Posição(3, 1));
     }
 }
