@@ -1,8 +1,9 @@
-import tabuleiro.Tabuleiro;
+import xadrez.PartidaXadrez;
 
 public class App {
     public static void main(String[] args) throws Exception {
 
-        Tabuleiro tabuleiro = new Tabuleiro(8, 8);
+        PartidaXadrez partidaXadrez = new PartidaXadrez();
+        UI.printTabuleiro(partidaXadrez.getpeças());
     }
 }
