@@ -1,6 +1,5 @@
 package xadrez;
 
-import tabuleiro.Posição;
 import tabuleiro.Tabuleiro;
 import xadrez.peças.*;
 
@@ -23,9 +22,13 @@ public class PartidaXadrez {
         return mat;
     }
 
+    private void lugarPeça(char coluna, int linha, PeçaXadrez peça) {
+        tabuleiro.posiçãoPeça(peça, new XadrezPosição(coluna, linha).toPosição());
+    }
+
     private void iniciaPartida() {
-        tabuleiro.posiçãoPeça(new Torre(tabuleiro, Cor.Branco), new Posição(2, 1));
-        tabuleiro.posiçãoPeça(new Torre(tabuleiro, Cor.Branco), new Posição(7, 1));
-        tabuleiro.posiçãoPeça(new Torre(tabuleiro, Cor.Branco), new Posição(3, 1));
+        lugarPeça('b', 6, new Torre(tabuleiro, Cor.Branco));
+        lugarPeça('c', 6, new Rei(tabuleiro, Cor.Preto));
+        lugarPeça('a', 6, new Torre(tabuleiro, Cor.Branco));
     }
 }
