@@ -1,5 +1,9 @@
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 import xadrez.Cor;
 import xadrez.PeçaXadrez;
+import xadrez.XadrezPosição;
 
 public class UI {
 
@@ -23,6 +27,18 @@ public class UI {
 	public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
+
+    public static XadrezPosição lerXadrezPosição(Scanner sc){
+        try{
+        String s = sc.nextLine();
+        char coluna = s.charAt(0);
+        int linha = Integer.parseInt(s.substring(1));
+        return new XadrezPosição(coluna, linha);
+        }
+        catch (RuntimeException e){
+            throw new InputMismatchException("Erro ao acessar posição, valores validos são de a1 ate h8!");
+        }
+    }
 
     public static void printTabuleiro(PeçaXadrez[][] peças) {
         for (int i = 0; i < peças.length; i++) {

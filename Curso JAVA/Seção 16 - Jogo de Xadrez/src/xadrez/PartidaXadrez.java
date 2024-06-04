@@ -1,6 +1,6 @@
 package xadrez;
 
-import tabuleiro.Tabuleiro;
+import tabuleiro.*;
 import xadrez.peças.*;
 
 public class PartidaXadrez {
@@ -20,6 +20,27 @@ public class PartidaXadrez {
             }
         }
         return mat;
+    }
+
+    public PeçaXadrez movimentaçãoXadrez(XadrezPosição origemPosição, XadrezPosição alvoPosição){
+        Posição origem = origemPosição.toPosição();
+        Posição alvo = alvoPosição.toPosição();
+        validadeAtualPosição(origem);
+        Peça capituraPeça = movimentaPeça(origem, alvo);
+        return (PeçaXadrez) capituraPeça;
+    }
+
+    private Peça movimentaPeça(Posição origem, Posição alvo){
+        Peça p = tabuleiro.removePeça(origem);
+        Peça capturaPeça = tabuleiro.removePeça(alvo);
+        tabuleiro.posiçãoPeça(p, alvo);
+        return capturaPeça;
+    }
+
+    private void validadeAtualPosição(Posição posição){
+        if(!tabuleiro.temPeça(posição)){
+            throw new TabuleiroExeção("Não a peça nessa posição");
+        }
     }
 
     private void lugarPeça(char coluna, int linha, PeçaXadrez peça) {
