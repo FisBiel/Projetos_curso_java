@@ -16,7 +16,7 @@ public abstract class Peça {
 
     public abstract boolean[][] possivelMover();
 
-    public boolean possivelMover(Posição posição){
+    public boolean possivelMove(Posição posição){
         return possivelMover()[posição.getLinha()][posição.getColuna()];
     }
 
