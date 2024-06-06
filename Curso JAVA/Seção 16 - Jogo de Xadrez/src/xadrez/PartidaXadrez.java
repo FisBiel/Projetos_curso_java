@@ -41,6 +41,9 @@ public class PartidaXadrez {
         if(!tabuleiro.temPeça(posição)){
             throw new TabuleiroExeção("Não a peça nessa posição");
         }
+        if(!tabuleiro.peça(posição).possivelUmMovimento()){
+            throw new XadrezExeção("Não á movimentações livres para essa peça");
+        }
     }
 
     private void lugarPeça(char coluna, int linha, PeçaXadrez peça) {

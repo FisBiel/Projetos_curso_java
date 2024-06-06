@@ -15,4 +15,10 @@ public class Rei extends PeçaXadrez {
         return "K";
     }
 
+    @Override
+    public boolean[][] possivelMover() {
+        boolean[][] mat = new boolean[getTabuleiro().getLinhas()][getTabuleiro().getColunas()];
+        return mat;
+    }
+
 }
