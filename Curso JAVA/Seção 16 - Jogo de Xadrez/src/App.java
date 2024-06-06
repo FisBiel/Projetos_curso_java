@@ -20,6 +20,11 @@ public class App {
                 System.out.print("Origem: ");
                 XadrezPosição origem = UI.lerXadrezPosição(sc);
 
+                boolean[][] possivelMover = partidaXadrez.possivelMover(origem);
+                UI.cleanScreen();
+                UI.printTabuleiro(partidaXadrez.getpeças(), possivelMover);
+
+
                 System.out.println();
                 System.out.print("Alvo: ");
                 XadrezPosição alvo = UI.lerXadrezPosição(sc);
