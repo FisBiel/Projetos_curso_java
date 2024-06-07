@@ -5,11 +5,23 @@ import xadrez.peças.*;
 
 public class PartidaXadrez {
 
+    private int turno;
+    private Cor corPlayer;
     private Tabuleiro tabuleiro;
 
     public PartidaXadrez() {
         tabuleiro = new Tabuleiro(8, 8);
+        turno = 1;
+        corPlayer = Cor.Branco;
         iniciaPartida();
+    }
+
+    public int getTurno() {
+        return turno;
+    }
+
+    public Cor getCorPlayer() {
+        return corPlayer;
     }
 
     public PeçaXadrez[][] getpeças() {
@@ -34,6 +46,7 @@ public class PartidaXadrez {
         validadeAtualPosição(origem);
         validadeAlvoPosição(origem, alvo);
         Peça capituraPeça = movimentaPeça(origem, alvo);
+        nextTurno();
         return (PeçaXadrez) capituraPeça;
     }
 
@@ -48,6 +61,9 @@ public class PartidaXadrez {
         if(!tabuleiro.temPeça(posição)){
             throw new TabuleiroExeção("Não a peça nessa posição");
         }
+        if(corPlayer != ((PeçaXadrez)tabuleiro.peça(posição)).getCor()){
+            throw new XadrezExeção("Esta peça não é sua");
+        }
         if(!tabuleiro.peça(posição).possivelUmMovimento()){
             throw new XadrezExeção("Não á movimentações livres para essa peça");
         }
@@ -57,6 +73,11 @@ public class PartidaXadrez {
         if(!tabuleiro.peça(origem).possivelMove(alvo)){
             throw new XadrezExeção("Essa peça não pode se mover para a posição de destino!");
         }
+    }
+
+    private void nextTurno(){
+        turno++;
+        corPlayer = (corPlayer == Cor.Branco) ? Cor.Preto : Cor.Branco;
     }
 
     private void lugarPeça(char coluna, int linha, PeçaXadrez peça) {

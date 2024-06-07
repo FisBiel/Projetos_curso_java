@@ -1,6 +1,7 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import xadrez.PartidaXadrez;
 import xadrez.Cor;
 import xadrez.PeçaXadrez;
 import xadrez.XadrezPosição;
@@ -45,6 +46,14 @@ public class UI {
         }
     }
 
+    public static void printpartida(PartidaXadrez partidaXadrez) {
+		printTabuleiro(partidaXadrez.getpeças());
+		System.out.println();
+		System.out.println("Turno : " + partidaXadrez.getTurno());
+		System.out.println("Jogada Player: " + partidaXadrez.getCorPlayer());
+	}
+
+
     public static void printTabuleiro(PeçaXadrez[][] peças) {
         for (int i = 0; i < peças.length; i++) {
             System.out.print((8 - i) + " ");
@@ -69,10 +78,14 @@ public class UI {
 
     private static void printPeça(PeçaXadrez peça, boolean background) {
         if(background){
-            System.out.print(ANSI_BLUE_BACKGROUND);
+            if(peça == null){
+                System.out.print(ANSI_BLUE_BACKGROUND);
+            }else{
+                System.out.print(ANSI_RED_BACKGROUND);
+            }
         }
         if (peça == null) {
-            System.out.print("-" + ANSI_RESET);
+            System.out.print("-" + ANSI_PURPLE);
         }
         else {
             if (peça.getCor() == Cor.Branco) {
