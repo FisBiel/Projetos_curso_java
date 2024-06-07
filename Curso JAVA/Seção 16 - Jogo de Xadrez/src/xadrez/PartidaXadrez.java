@@ -1,5 +1,8 @@
 package xadrez;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import tabuleiro.*;
 import xadrez.peças.*;
 
@@ -8,6 +11,9 @@ public class PartidaXadrez {
     private int turno;
     private Cor corPlayer;
     private Tabuleiro tabuleiro;
+
+    private List<Peça> peçasNoTabuleiro = new ArrayList<>();
+	private List<Peça> capturaPeças = new ArrayList<>();
 
     public PartidaXadrez() {
         tabuleiro = new Tabuleiro(8, 8);
@@ -54,18 +60,21 @@ public class PartidaXadrez {
         Peça p = tabuleiro.removePeça(origem);
         Peça capturaPeça = tabuleiro.removePeça(alvo);
         tabuleiro.posiçãoPeça(p, alvo);
+        if(capturaPeça != null)
+            peçasNoTabuleiro.remove(capturaPeça);
+            capturaPeças.add(capturaPeça);
         return capturaPeça;
     }
 
     private void validadeAtualPosição(Posição posição){
         if(!tabuleiro.temPeça(posição)){
-            throw new TabuleiroExeção("Não a peça nessa posição");
+            throw new XadrezExeção("Não a peça nessa posição.");
         }
         if(corPlayer != ((PeçaXadrez)tabuleiro.peça(posição)).getCor()){
-            throw new XadrezExeção("Esta peça não é sua");
+            throw new XadrezExeção("Esta peça não é sua.");
         }
         if(!tabuleiro.peça(posição).possivelUmMovimento()){
-            throw new XadrezExeção("Não á movimentações livres para essa peça");
+            throw new XadrezExeção("Não á movimentações livres para essa peça.");
         }
     }
 
@@ -82,6 +91,7 @@ public class PartidaXadrez {
 
     private void lugarPeça(char coluna, int linha, PeçaXadrez peça) {
         tabuleiro.posiçãoPeça(peça, new XadrezPosição(coluna, linha).toPosição());
+        peçasNoTabuleiro.add(peça);
     }
 
     private void iniciaPartida() {
