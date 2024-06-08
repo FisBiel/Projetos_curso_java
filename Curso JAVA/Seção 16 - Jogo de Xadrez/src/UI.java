@@ -55,9 +55,14 @@ public class UI {
         printCapturaPeça(captura);
         System.out.println();
 		System.out.println("Turno : " + partidaXadrez.getTurno());
-		System.out.println("Jogada Player: " + partidaXadrez.getCorPlayer());
-        if(partidaXadrez.getCheck()){
-            System.out.println("CHECK!");
+        if(!partidaXadrez.getCheckMate()){
+            System.out.println("Jogada Player: " + partidaXadrez.getCorPlayer());
+            if(partidaXadrez.getCheck()){
+                System.out.println("CHECK!");
+            }
+        }else{
+            System.out.println("CHECKMATE!");
+            System.out.println("Vencedor: " + partidaXadrez.getCorPlayer());
         }
 	}
 

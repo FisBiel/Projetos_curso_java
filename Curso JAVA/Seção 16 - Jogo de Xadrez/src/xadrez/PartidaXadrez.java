@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.swing.text.Position;
+
 import tabuleiro.*;
 import xadrez.peças.*;
 
@@ -13,6 +15,7 @@ public class PartidaXadrez {
     private Cor corPlayer;
     private Tabuleiro tabuleiro;
     private boolean check;
+    private boolean checkMate;
 
     private List<Peça> peçasNoTabuleiro = new ArrayList<>();
 	private List<Peça> capturaPeças = new ArrayList<>();
@@ -35,6 +38,10 @@ public class PartidaXadrez {
     public boolean getCheck() {
 		return check;
 	}
+
+    public boolean getCheckMate() {
+        return checkMate;
+    }
 
     public PeçaXadrez[][] getpeças() {
         PeçaXadrez[][] mat = new PeçaXadrez[tabuleiro.getLinhas()][tabuleiro.getColunas()];
@@ -62,9 +69,12 @@ public class PartidaXadrez {
 			desfazMovi(origem, alvo, capituraPeça);
 			throw new XadrezExeção("Você não pode se colocar em cheque!");
 		}
-
 		check = (testeCheck(oponente(corPlayer))) ? true : false;
-        nextTurno();
+        if(testeCheckMate(oponente(corPlayer))){
+            checkMate = true;
+        }else{
+            nextTurno();
+        }
         return (PeçaXadrez) capituraPeça;
     }
 
@@ -81,7 +91,6 @@ public class PartidaXadrez {
     private void desfazMovi(Posição origem, Posição alvo, Peça capturaPeça) {
 		Peça p = tabuleiro.removePeça(alvo);
 		tabuleiro.posiçãoPeça(p, origem);
-
 		if (capturaPeça != null) {
 			tabuleiro.posiçãoPeça(capturaPeça, alvo);
 			capturaPeças.remove(capturaPeça);
@@ -143,19 +152,37 @@ public class PartidaXadrez {
 		return false;
 	}
 
-    private void iniciaPartida() {
-        lugarPeça('c', 1, new Torre(tabuleiro, Cor.Branco));
-        lugarPeça('c', 2, new Torre(tabuleiro, Cor.Branco));
-        lugarPeça('d', 2, new Torre(tabuleiro, Cor.Branco));
-        lugarPeça('e', 2, new Torre(tabuleiro, Cor.Branco));
-        lugarPeça('e', 1, new Torre(tabuleiro, Cor.Branco));
-        lugarPeça('d', 1, new Rei(tabuleiro, Cor.Branco));
+    private boolean testeCheckMate(Cor cor){
+        if (!testeCheck(cor)) {
+			return false;
+		}
+		List<Peça> list = peçasNoTabuleiro.stream().filter(x -> ((PeçaXadrez)x).getCor() == cor).collect(Collectors.toList());
+		for (Peça p : list) {
+			boolean[][] mat = p.possivelMover();
+			for (int i=0; i<tabuleiro.getLinhas(); i++) {
+				for (int j=0; j<tabuleiro.getColunas(); j++) {
+					if (mat[i][j]) {
+						Posição origem = ((PeçaXadrez)p).getXadrezPosição().toPosição();
+						Posição alvo = new Posição(i, j);
+						Peça capturaPeça = movimentaPeça(origem, alvo);
+						boolean testeCheck = testeCheck(cor);
+						desfazMovi(origem, alvo, capturaPeça);
+						if (!testeCheck) {
+							return false;
+						}
+					}
+				}
+			}
+		}
+		return true;
+    }
 
-        lugarPeça('c', 7, new Torre(tabuleiro, Cor.Preto));
-        lugarPeça('c', 8, new Torre(tabuleiro, Cor.Preto));
-        lugarPeça('d', 7, new Torre(tabuleiro, Cor.Preto));
-        lugarPeça('e', 7, new Torre(tabuleiro, Cor.Preto));
+    private void iniciaPartida() {
+        lugarPeça('h', 7, new Torre(tabuleiro, Cor.Branco));
+        lugarPeça('d', 1, new Torre(tabuleiro, Cor.Branco));
+        lugarPeça('e', 1, new Rei(tabuleiro, Cor.Branco));
+
         lugarPeça('e', 8, new Torre(tabuleiro, Cor.Preto));
-        lugarPeça('d', 8, new Rei(tabuleiro, Cor.Preto));
+        lugarPeça('a', 8, new Rei(tabuleiro, Cor.Preto));
     }
 }
