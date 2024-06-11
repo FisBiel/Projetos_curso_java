@@ -79,7 +79,8 @@ public class PartidaXadrez {
     }
 
     private Peça movimentaPeça(Posição origem, Posição alvo){
-        Peça p = tabuleiro.removePeça(origem);
+        PeçaXadrez p = (PeçaXadrez)tabuleiro.removePeça(origem);
+        p.incrementaNMovimento();
         Peça capturaPeça = tabuleiro.removePeça(alvo);
         tabuleiro.posiçãoPeça(p, alvo);
         if(capturaPeça != null)
@@ -89,7 +90,8 @@ public class PartidaXadrez {
     }
 
     private void desfazMovi(Posição origem, Posição alvo, Peça capturaPeça) {
-		Peça p = tabuleiro.removePeça(alvo);
+		PeçaXadrez p = (PeçaXadrez)tabuleiro.removePeça(alvo);
+        p.decrimentaNMovimento();
 		tabuleiro.posiçãoPeça(p, origem);
 		if (capturaPeça != null) {
 			tabuleiro.posiçãoPeça(capturaPeça, alvo);
@@ -178,11 +180,29 @@ public class PartidaXadrez {
     }
 
     private void iniciaPartida() {
-        lugarPeça('h', 7, new Torre(tabuleiro, Cor.Branco));
-        lugarPeça('d', 1, new Torre(tabuleiro, Cor.Branco));
+        lugarPeça('h', 1, new Torre(tabuleiro, Cor.Branco));
+        lugarPeça('a', 1, new Torre(tabuleiro, Cor.Branco));
         lugarPeça('e', 1, new Rei(tabuleiro, Cor.Branco));
+        lugarPeça('a', 2, new Peão(tabuleiro, Cor.Branco));
+        lugarPeça('b', 2, new Peão(tabuleiro, Cor.Branco));
+        lugarPeça('c', 2, new Peão(tabuleiro, Cor.Branco));
+        lugarPeça('d', 2, new Peão(tabuleiro, Cor.Branco));
+        lugarPeça('e', 2, new Peão(tabuleiro, Cor.Branco));
+        lugarPeça('f', 2, new Peão(tabuleiro, Cor.Branco));
+        lugarPeça('g', 2, new Peão(tabuleiro, Cor.Branco));
+        lugarPeça('h', 2, new Peão(tabuleiro, Cor.Branco));
 
-        lugarPeça('e', 8, new Torre(tabuleiro, Cor.Preto));
-        lugarPeça('a', 8, new Rei(tabuleiro, Cor.Preto));
+
+        lugarPeça('h', 8, new Torre(tabuleiro, Cor.Preto));
+        lugarPeça('a', 8, new Torre(tabuleiro, Cor.Preto));
+        lugarPeça('d', 8, new Rei(tabuleiro, Cor.Preto));
+        lugarPeça('a', 7, new Peão(tabuleiro, Cor.Preto));
+        lugarPeça('b', 7, new Peão(tabuleiro, Cor.Preto));
+        lugarPeça('c', 7, new Peão(tabuleiro, Cor.Preto));
+        lugarPeça('d', 7, new Peão(tabuleiro, Cor.Preto));
+        lugarPeça('e', 7, new Peão(tabuleiro, Cor.Preto));
+        lugarPeça('f', 7, new Peão(tabuleiro, Cor.Preto));
+        lugarPeça('g', 7, new Peão(tabuleiro, Cor.Preto));
+        lugarPeça('h', 7, new Peão(tabuleiro, Cor.Preto));
     }
 }

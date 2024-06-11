@@ -7,6 +7,7 @@ import tabuleiro.Tabuleiro;
 public abstract class PeçaXadrez extends Peça {
 
     private Cor cor;
+    private int moviCont;
 
     public PeçaXadrez(Tabuleiro tabuleiro, Cor cor) {
         super(tabuleiro);
@@ -25,5 +26,18 @@ public abstract class PeçaXadrez extends Peça {
         PeçaXadrez p = (PeçaXadrez) getTabuleiro().peça(posição);
         return p != null & p.getCor() != cor;
     }
+
+    public int getMoviCont() {
+        return moviCont;
+    }
+
+    public void incrementaNMovimento(){
+        moviCont++;
+    }
+
+    public void decrimentaNMovimento(){
+        moviCont--;
+    }
+
 
 }
