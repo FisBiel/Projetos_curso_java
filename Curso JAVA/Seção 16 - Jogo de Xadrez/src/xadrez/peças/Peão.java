@@ -18,7 +18,7 @@ public class Peão extends PeçaXadrez {
         Posição p = new Posição(0, 0);
 
         if(getCor() == Cor.Branco){
-            p.setValor(posição.getLinha(), posição.getColuna());
+            p.setValor(posição.getLinha() - 1, posição.getColuna());
             if(getTabuleiro().posiçãoExistente(p) && !getTabuleiro().temPeça(p)){
                 mat[p.getLinha()][p.getColuna()] = true;
             }
@@ -31,6 +31,7 @@ public class Peão extends PeçaXadrez {
             if(getTabuleiro().posiçãoExistente(p) && possivelComer(p)){
                 mat[p.getLinha()][p.getColuna()] = true;
             }
+            p.setValor(posição.getLinha() -1, posição.getColuna() + 1);
             if(getTabuleiro().posiçãoExistente(p) && possivelComer(p)){
                 mat[p.getLinha()][p.getColuna()] = true;
             }
@@ -53,7 +54,7 @@ public class Peão extends PeçaXadrez {
                 mat[p.getLinha()][p.getColuna()] = true;
             }
         }
-    return mat;
+        return mat;
     }
     
     @Override

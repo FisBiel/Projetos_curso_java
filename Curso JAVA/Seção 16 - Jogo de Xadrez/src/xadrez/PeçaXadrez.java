@@ -24,7 +24,7 @@ public abstract class PeçaXadrez extends Peça {
 
     protected boolean possivelComer(Posição posição){
         PeçaXadrez p = (PeçaXadrez) getTabuleiro().peça(posição);
-        return p != null & p.getCor() != cor;
+        return p != null && p.getCor() != cor;
     }
 
     public int getMoviCont() {
