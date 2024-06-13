@@ -180,6 +180,10 @@ public class PartidaXadrez {
     private void iniciaPartida() {
         lugarPeça('h', 1, new Torre(tabuleiro, Cor.Branco));
         lugarPeça('a', 1, new Torre(tabuleiro, Cor.Branco));
+        lugarPeça('f', 1, new Bispo(tabuleiro, Cor.Branco));
+        lugarPeça('c', 1, new Bispo(tabuleiro, Cor.Branco));
+        lugarPeça('b', 1, new Cavalo(tabuleiro, Cor.Branco));
+        lugarPeça('g', 1, new Cavalo(tabuleiro, Cor.Branco));
         lugarPeça('e', 1, new Rei(tabuleiro, Cor.Branco));
         lugarPeça('a', 2, new Peão(tabuleiro, Cor.Branco));
         lugarPeça('b', 2, new Peão(tabuleiro, Cor.Branco));
@@ -193,7 +197,11 @@ public class PartidaXadrez {
 
         lugarPeça('h', 8, new Torre(tabuleiro, Cor.Preto));
         lugarPeça('a', 8, new Torre(tabuleiro, Cor.Preto));
-        lugarPeça('d', 8, new Rei(tabuleiro, Cor.Preto));
+        lugarPeça('f', 8, new Bispo(tabuleiro, Cor.Preto));
+        lugarPeça('c', 8, new Bispo(tabuleiro, Cor.Preto));
+        lugarPeça('b', 8, new Cavalo(tabuleiro, Cor.Preto));
+        lugarPeça('g', 8, new Cavalo(tabuleiro, Cor.Preto));
+        lugarPeça('e', 8, new Rei(tabuleiro, Cor.Preto));
         lugarPeça('a', 7, new Peão(tabuleiro, Cor.Preto));
         lugarPeça('b', 7, new Peão(tabuleiro, Cor.Preto));
         lugarPeça('c', 7, new Peão(tabuleiro, Cor.Preto));
