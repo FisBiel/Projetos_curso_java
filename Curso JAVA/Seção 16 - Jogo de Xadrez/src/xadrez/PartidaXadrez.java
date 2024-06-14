@@ -185,6 +185,7 @@ public class PartidaXadrez {
         lugarPeça('b', 1, new Cavalo(tabuleiro, Cor.Branco));
         lugarPeça('g', 1, new Cavalo(tabuleiro, Cor.Branco));
         lugarPeça('e', 1, new Rei(tabuleiro, Cor.Branco));
+        lugarPeça('d', 1, new Rainha(tabuleiro, Cor.Branco));
         lugarPeça('a', 2, new Peão(tabuleiro, Cor.Branco));
         lugarPeça('b', 2, new Peão(tabuleiro, Cor.Branco));
         lugarPeça('c', 2, new Peão(tabuleiro, Cor.Branco));
@@ -202,6 +203,7 @@ public class PartidaXadrez {
         lugarPeça('b', 8, new Cavalo(tabuleiro, Cor.Preto));
         lugarPeça('g', 8, new Cavalo(tabuleiro, Cor.Preto));
         lugarPeça('e', 8, new Rei(tabuleiro, Cor.Preto));
+        lugarPeça('d', 8, new Rainha(tabuleiro, Cor.Preto));
         lugarPeça('a', 7, new Peão(tabuleiro, Cor.Preto));
         lugarPeça('b', 7, new Peão(tabuleiro, Cor.Preto));
         lugarPeça('c', 7, new Peão(tabuleiro, Cor.Preto));
