@@ -84,18 +84,53 @@ public class PartidaXadrez {
         if(capturaPeça != null)
             peçasNoTabuleiro.remove(capturaPeça);
             capturaPeças.add(capturaPeça);
+
+        //Movimento especial
+        if(p instanceof Rei && alvo.getColuna() == origem.getColuna() + 2){
+            Posição origemT = new Posição(origem.getLinha(), origem.getColuna() + 3);
+            Posição alvoT = new Posição(origem.getLinha(), origem.getColuna() + 1);
+            PeçaXadrez torre = (PeçaXadrez)tabuleiro.removePeça(origemT);
+            tabuleiro.posiçãoPeça(torre, alvoT);
+            torre.incrementaNMovimento();
+        }
+
+        if(p instanceof Rei && alvo.getColuna() == origem.getColuna() - 2){
+            Posição origemT = new Posição(origem.getLinha(), origem.getColuna() - 4);
+            Posição alvoT = new Posição(origem.getLinha(), origem.getColuna() - 1);
+            PeçaXadrez torre = (PeçaXadrez)tabuleiro.removePeça(origemT);
+            tabuleiro.posiçãoPeça(torre, alvoT);
+            torre.incrementaNMovimento();
+        }
+
         return capturaPeça;
     }
 
     private void desfazMovi(Posição origem, Posição alvo, Peça capturaPeça) {
 		PeçaXadrez p = (PeçaXadrez)tabuleiro.removePeça(alvo);
-        p.decrimentaNMovimento();
+        p.decrementaNMovimento();
 		tabuleiro.posiçãoPeça(p, origem);
 		if (capturaPeça != null) {
 			tabuleiro.posiçãoPeça(capturaPeça, alvo);
 			capturaPeças.remove(capturaPeça);
 			peçasNoTabuleiro.add(capturaPeça);
 		}
+
+        //Movimento especial
+        if(p instanceof Rei && alvo.getColuna() == origem.getColuna() + 2){
+            Posição origemT = new Posição(origem.getLinha(), origem.getColuna() + 3);
+            Posição alvoT = new Posição(origem.getLinha(), origem.getColuna() + 1);
+            PeçaXadrez torre = (PeçaXadrez)tabuleiro.removePeça(alvoT);
+            tabuleiro.posiçãoPeça(torre, origemT);
+            torre.decrementaNMovimento();
+        }
+
+        if(p instanceof Rei && alvo.getColuna() == origem.getColuna() - 2){
+            Posição origemT = new Posição(origem.getLinha(), origem.getColuna() - 4);
+            Posição alvoT = new Posição(origem.getLinha(), origem.getColuna() - 1);
+            PeçaXadrez torre = (PeçaXadrez)tabuleiro.removePeça(alvoT);
+            tabuleiro.posiçãoPeça(torre, origemT);
+            torre.decrementaNMovimento();
+        }
 	}
 
     private void validadeAtualPosição(Posição posição){
@@ -180,12 +215,12 @@ public class PartidaXadrez {
     private void iniciaPartida() {
         lugarPeça('h', 1, new Torre(tabuleiro, Cor.Branco));
         lugarPeça('a', 1, new Torre(tabuleiro, Cor.Branco));
-        lugarPeça('f', 1, new Bispo(tabuleiro, Cor.Branco));
-        lugarPeça('c', 1, new Bispo(tabuleiro, Cor.Branco));
-        lugarPeça('b', 1, new Cavalo(tabuleiro, Cor.Branco));
-        lugarPeça('g', 1, new Cavalo(tabuleiro, Cor.Branco));
-        lugarPeça('e', 1, new Rei(tabuleiro, Cor.Branco));
-        lugarPeça('d', 1, new Rainha(tabuleiro, Cor.Branco));
+        //lugarPeça('f', 1, new Bispo(tabuleiro, Cor.Branco));
+        //lugarPeça('c', 1, new Bispo(tabuleiro, Cor.Branco));
+        //lugarPeça('b', 1, new Cavalo(tabuleiro, Cor.Branco));
+        //lugarPeça('g', 1, new Cavalo(tabuleiro, Cor.Branco));
+        lugarPeça('e', 1, new Rei(tabuleiro, Cor.Branco, this));
+        //lugarPeça('d', 1, new Rainha(tabuleiro, Cor.Branco));
         lugarPeça('a', 2, new Peão(tabuleiro, Cor.Branco));
         lugarPeça('b', 2, new Peão(tabuleiro, Cor.Branco));
         lugarPeça('c', 2, new Peão(tabuleiro, Cor.Branco));
@@ -202,7 +237,7 @@ public class PartidaXadrez {
         lugarPeça('c', 8, new Bispo(tabuleiro, Cor.Preto));
         lugarPeça('b', 8, new Cavalo(tabuleiro, Cor.Preto));
         lugarPeça('g', 8, new Cavalo(tabuleiro, Cor.Preto));
-        lugarPeça('e', 8, new Rei(tabuleiro, Cor.Preto));
+        lugarPeça('e', 8, new Rei(tabuleiro, Cor.Preto, this));
         lugarPeça('d', 8, new Rainha(tabuleiro, Cor.Preto));
         lugarPeça('a', 7, new Peão(tabuleiro, Cor.Preto));
         lugarPeça('b', 7, new Peão(tabuleiro, Cor.Preto));
