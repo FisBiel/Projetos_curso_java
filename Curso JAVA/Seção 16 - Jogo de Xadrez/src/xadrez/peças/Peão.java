@@ -3,12 +3,16 @@ package xadrez.peças;
 import tabuleiro.Posição;
 import tabuleiro.Tabuleiro;
 import xadrez.Cor;
+import xadrez.PartidaXadrez;
 import xadrez.PeçaXadrez;
 
 public class Peão extends PeçaXadrez {
 
-    public Peão(Tabuleiro tabuleiro, Cor cor) {
+    private PartidaXadrez partidaXadrez;
+
+    public Peão(Tabuleiro tabuleiro, Cor cor, PartidaXadrez partidaXadrez) {
         super(tabuleiro, cor);
+        this.partidaXadrez = partidaXadrez;
     }
 
     @Override
@@ -35,6 +39,17 @@ public class Peão extends PeçaXadrez {
             if(getTabuleiro().posiçãoExistente(p) && possivelComer(p)){
                 mat[p.getLinha()][p.getColuna()] = true;
             }
+            //Especial
+            if(posição.getLinha() == 3){
+                Posição esqu = new Posição(posição.getLinha(), posição.getColuna() - 1);
+                if(getTabuleiro().posiçãoExistente(esqu) && possivelComer(esqu) && getTabuleiro().peça(esqu) == partidaXadrez.getVulneravel()){
+                    mat[esqu.getLinha() - 1][esqu.getColuna()] = true;
+                }
+                Posição dir = new Posição(posição.getLinha(), posição.getColuna() + 1);
+                if(getTabuleiro().posiçãoExistente(dir) && possivelComer(dir) && getTabuleiro().peça(dir) == partidaXadrez.getVulneravel()){
+                    mat[dir.getLinha() - 1][dir.getColuna()] = true;
+                }
+            }
         }else{
             p.setValor(posição.getLinha() + 1, posição.getColuna());
             if(getTabuleiro().posiçãoExistente(p) && !getTabuleiro().temPeça(p)){
@@ -53,6 +68,17 @@ public class Peão extends PeçaXadrez {
             if(getTabuleiro().posiçãoExistente(p) && possivelComer(p)){
                 mat[p.getLinha()][p.getColuna()] = true;
             }
+            //Especial
+            if(posição.getLinha() == 4){
+                Posição esqu = new Posição(posição.getLinha(), posição.getColuna() - 1);
+                if(getTabuleiro().posiçãoExistente(esqu) && possivelComer(esqu) && getTabuleiro().peça(esqu) == partidaXadrez.getVulneravel()){
+                    mat[esqu.getLinha() + 1][esqu.getColuna()] = true;
+                }
+                Posição dir = new Posição(posição.getLinha(), posição.getColuna() + 1);
+                if(getTabuleiro().posiçãoExistente(dir) && possivelComer(dir) && getTabuleiro().peça(dir) == partidaXadrez.getVulneravel()){
+                    mat[dir.getLinha() + 1][dir.getColuna()] = true;
+                }
+            }            
         }
         return mat;
     }
