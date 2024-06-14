@@ -38,6 +38,12 @@ public class App {
                 if(capturaPeça != null){
                     captura.add(capturaPeça);
                 }
+
+                if(partidaXadrez.getPromo() != null){
+                    System.out.println("Qual peça você deseja: (B/N/R/Q)");
+                    String type = sc.nextLine();
+                    partidaXadrez.substituirPromo(type);
+                }
             }
             catch(XadrezExeção e){
                 System.out.println(e.getMessage());
