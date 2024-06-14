@@ -1,5 +1,6 @@
 package xadrez;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +16,7 @@ public class PartidaXadrez {
     private boolean check;
     private boolean checkMate;
     private PeçaXadrez vulneravel;
+    private PeçaXadrez promo;
 
     private List<Peça> peçasNoTabuleiro = new ArrayList<>();
 	private List<Peça> capturaPeças = new ArrayList<>();
@@ -40,6 +42,10 @@ public class PartidaXadrez {
 
     public boolean getCheckMate() {
         return checkMate;
+    }
+
+    public PeçaXadrez getPromo() {
+        return promo;
     }
 
     public PeçaXadrez[][] getpeças() {
@@ -75,6 +81,14 @@ public class PartidaXadrez {
 
         PeçaXadrez moviPeça = (PeçaXadrez)tabuleiro.peça(alvo);
 
+        promo = null;
+        if(moviPeça instanceof Peão){
+            if((moviPeça.getCor() == Cor.Branco && alvo.getLinha() == 0) || (moviPeça.getCor() == Cor.Branco && alvo.getLinha() == 7)){
+                promo = (PeçaXadrez)tabuleiro.peça(alvo);
+                promo = substituirPromo("Q");
+            }
+        }
+
 		check = (testeCheck(oponente(corPlayer))) ? true : false;
 
         if(testeCheckMate(oponente(corPlayer))){
@@ -90,6 +104,32 @@ public class PartidaXadrez {
         }
 
         return (PeçaXadrez) capituraPeça;
+    }
+
+    public PeçaXadrez substituirPromo(String type){
+        if(promo == null){
+            throw new IllegalStateException("Não a peças para promoção");
+        }
+        if( !type.equals("B") && !type.equals("N") && !type.equals("R") && !type.equals("Q")){
+            throw new InvalidParameterException("Possição invalida");
+        }
+
+        Posição posi = promo.getXadrezPosição().toPosição();
+        Peça p = tabuleiro.removePeça(posi);
+        peçasNoTabuleiro.remove(p);
+
+        PeçaXadrez novaPeça = novaPeça(type, promo.getCor());
+        tabuleiro.posiçãoPeça(novaPeça, posi);
+        peçasNoTabuleiro.add(novaPeça);
+
+        return novaPeça;
+    }
+
+    private PeçaXadrez novaPeça(String type, Cor cor){
+        if(type.equals("B")) return new Bispo(tabuleiro, cor);
+        if(type.equals("N")) return new Cavalo(tabuleiro, cor);
+        if(type.equals("Q")) return new Rainha(tabuleiro, cor);
+        return new Torre(tabuleiro, cor);
     }
 
     private Peça movimentaPeça(Posição origem, Posição alvo){
@@ -289,6 +329,6 @@ public class PartidaXadrez {
         lugarPeça('e', 7, new Peão(tabuleiro, Cor.Preto, this));
         lugarPeça('f', 7, new Peão(tabuleiro, Cor.Preto, this));
         lugarPeça('g', 7, new Peão(tabuleiro, Cor.Preto, this));
-        lugarPeça('h', 7, new Peão(tabuleiro, Cor.Preto, this));
+        lugarPeça('h', 7, new Peão(tabuleiro, Cor.Preto, this)); 
     }
 }
