@@ -24,7 +24,6 @@ public class App {
                 XadrezPosição origem = UI.lerXadrezPosição(sc);
 
                 boolean[][] possivelMover = partidaXadrez.possivelMover(origem);
-                System.out.println("batata");
                 UI.cleanScreen();
                 UI.printTabuleiro(partidaXadrez.getpeças(), possivelMover);
 
@@ -41,7 +40,11 @@ public class App {
 
                 if(partidaXadrez.getPromo() != null){
                     System.out.println("Qual peça você deseja: (B/N/R/Q)");
-                    String type = sc.nextLine();
+                    String type = sc.nextLine().toUpperCase();
+                    while (!type.equals("B") && !type.equals("N") && !type.equals("R") & !type.equals("Q")) {
+                        System.out.print("Invalid value! Enter piece for promotion (B/N/R/Q): ");
+						type = sc.nextLine().toUpperCase();
+                    }
                     partidaXadrez.substituirPromo(type);
                 }
             }

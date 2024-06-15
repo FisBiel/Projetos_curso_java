@@ -31,11 +31,11 @@ public abstract class PeçaXadrez extends Peça {
         return moviCont;
     }
 
-    public void incrementaNMovimento(){
+    protected void incrementaNMovimento(){
         moviCont++;
     }
 
-    public void decrementaNMovimento(){
+    protected void decrementaNMovimento(){
         moviCont--;
     }
 
