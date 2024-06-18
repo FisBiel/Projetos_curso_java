@@ -13,7 +13,7 @@ public class Cavalo extends PeçaXadrez {
 
     @Override
     public String toString() {
-        return "K";
+        return "C";
     }
 
     private boolean podeMover(Posição posição){
