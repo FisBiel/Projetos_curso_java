@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CourseApplication",
+            "request": "launch",
+            "mainClass": "com.cursojava.course.CourseApplication",
+            "projectName": "com.cursojava-course"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-CourseApplication<com.educandoweb-course>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.educandoweb.course.CourseApplication",
+            "projectName": "com.educandoweb-course",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
